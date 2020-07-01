@@ -24,7 +24,7 @@ python apps.py
 url=**[http://localhost:5000/]**
 
 
-	1.The user needs to open the default browser and enter the url given     above
+	1.The user needs to open the default browser and enter the url given above
 
 	2.Now the user needs to enter the city name.
 	  It will redirect us to another page where the weather details of the city is shown.
