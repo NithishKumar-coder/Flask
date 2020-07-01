@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="data:,">
+    
+  <title>weather report</title>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<style>
+body {
+  
+  margin: 0 auto;
+  color: red;
+  font-family:fantasy;
+  text-align: center;
+  background-color:purple;
+}
+h1,h5,h6 {
+margin-bottom: 1.375em;
+color:red;
+font-weight: 100;
+font-size: 10000;
+text-transform: capitalize;
+} 
+form { 
+margin: 0 auto; 
+width:250px;
+}
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+</style>
+</head>
+    <body>
+        <div class="container">
+            <div class='text-center'>
+                <h1>WEATHER APP</h1>
+            </div>
+            <centre class="row">
+              <!-- form to get city name as input from user -->
+                <form action=" http://127.0.0.1:5000/result" method="post" class="col-md-6 col-md-offset-3">
+                  <div class="input-group" >
+                    
+                    <input type="text" class="form-control" name="city" placeholder="Enter city Name">                    
+                    </div>
+                    <button class="button">Search</button>
+                    <form>
+              </centre>
+                <br>
+                
+            </form>
+        
+        </form>
+    </body>
+</html>
