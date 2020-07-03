@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Named Entity Recognizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <p class="navbar-brand" >Named Entity Extractor</p>
+  
+
+
+</nav>
+<br/>
+<br/>
+<br/>
+   <div class="container">
+        
+        <form method="POST" action="/process">
+            <div class="form-group">
+                    <label>Enter URL</label>
+                    <input type="text"  class="form-control" id="url" name="url" placeholder="Enter url"  required="true">  
+            <br/>
+            <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Submit</button>
+         
+        </div>
+        </form>
+    </div>
+
+    <div class="container">
+    	<div class="alert alert-success" role="alert">
+       {% for data in results %}
+    
+           <ul> {% for entity,name in data.items() %}</ul>
+                <p class="alert-heading">Entity:{{entity}}</p>
+                <span class="new0">count:{{name|length}}</span>
+                <ul>{%for value in name%}</ul>
+                <li>{{value}}</li>
+                    {%endfor%}
+        
+            {%endfor%}
+        {%endfor%}
+        </div>
+    </div>
+</body>
+</html>
