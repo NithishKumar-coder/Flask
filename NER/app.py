@@ -8,21 +8,13 @@ from logging.handlers import RotatingFileHandler
 
 app = Flask(__name__,template_folder="template")
 
-handler=RotatingFileHandler("error.log",maxBytes=1024*1024*100)
-app.logger.addHandler(handler)
 
 @app.route('/')
 def index():
 	return render_template("index.html")
 
-@app.errorhandler(500)
-def IS_error(exception):
-  app.logger.error(exception)
-  return "<h1>Server error has occured </h1>"
-@app.errorhandler(404)
-def notfound(exception):
-  app.logger.error(exception)
-  return "<h1>Make sure you have proper internet connection </h1>"
+file_handler=RotatingFileHandler("error.log",maxBytes=1024*1024*100)
+app.logger.addHandler(file_handler)
 
 def read_json(file_name):
   with open('./data/'+file_name+'.json', 'r') as f:
@@ -47,6 +39,10 @@ def create_folder():
   if not os.path.exists(new_path):
     os.makedirs(new_path)
   return "data"
+@app.errorhandler(500)
+def Iserror(exception):
+  app.logger.error(exception)
+  return "<h1>Unable to give output due to server error</h1>"
 
 @app.route("/process",methods =['POST', 'GET'])
 def process():
@@ -62,7 +58,7 @@ def process():
         return render_template("index.html",results=results)
 
 if __name__ == '__main__':
-	app.run(debug=True,port=5003)
+	app.run()
     
 
 
