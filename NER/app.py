@@ -33,14 +33,17 @@ def get_entity_namelist(json_data):
         res={value_list[0]:value_list[1]}
         results.append(res) 
     return results
+##usage of relative path to store it in the same directory 
 start=os.getcwd()
-path="\data"
-data=start+path
+path="\\data"
+data=os.path.relpath(path, start) 
 def create_folder():
   new_path = r'data' 
   if not os.path.exists(new_path):
     os.makedirs(new_path)
   return "data"
+
+#exception handling
 @app.errorhandler(500)
 def Iserror(exception):
   app.logger.error(exception)
