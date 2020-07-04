@@ -35,7 +35,7 @@ def get_entity_namelist(json_data):
     return results
 
 def create_folder():
-  new_path = r'F:\j\ner\data' 
+  new_path = r'C:\Users\NITHISH KUMAR\Documents\ner\data' 
   if not os.path.exists(new_path):
     os.makedirs(new_path)
   return "data"
