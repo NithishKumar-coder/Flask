@@ -23,8 +23,8 @@ parser.add_argument("\"You must provide url on command line\"")
 args = parser.parse_args()
 
 #getting the path of current directory
-path=os.getcwd()
-data=path
+data=os.getcwd()
+
 #creating new  data folder directory
 new_path = r'data' 
 if not os.path.exists(new_path):
