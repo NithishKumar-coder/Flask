@@ -22,8 +22,11 @@ parser.add_argument("\"You must provide url on command line\"")
 #Parsing arguments
 args = parser.parse_args()
 
+#getting the path of current directory
+path=os.getcwd()
+data=path
 #creating new  data folder directory
-new_path = r'C:\Users\NITHISH KUMAR\Documents\ner' 
+new_path = r'data' 
 if not os.path.exists(new_path):
     os.makedirs(new_path)
 folder_name="data"
