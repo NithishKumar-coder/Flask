@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <title>Document</title>
+
+    <style>
+        body{
+            background-color:black;
+        }
+        h1{
+            color: seagreen;
+            margin: 0 auto; 
+            width:800px;
+
+        }
+        form { 
+        margin: 0 auto; 
+        width:500px;
+}
+.questions{
+    font-style: normal;
+    color:red;
+}
+    </style>
+</head>
+<body>
+
+    <h1>GENERAL QUIZ ABOUT THE WONDERS</h1>
+<div>
+<form action='/score' method='POST'>
+    <ol>
+        <div class="questions">
+        {% for i in q %}
+            <li>Where is <u>{{i}}</u> located?</li>
+            {% for j in o[i] %}
+                <input type='radio' value='{{j}}' name='{{i}}' />{{j}}
+            {% endfor %}
+        {% endfor %}
+    </div>
+    </ol>
+    <input type="reset"  value="Reset">
+    
+    <input type="submit" value="submit" />
+</form>
+</div>
+</body>
+</html>
