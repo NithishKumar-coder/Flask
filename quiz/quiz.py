@@ -9,7 +9,6 @@ sqliteconnection=sqlite3.connect('quiz.db')
 file_handler=RotatingFileHandler("error.log",maxBytes= 1024 * 1024 *100)
 app.logger.addHandler(file_handler)
 
-li=[]
 score=0
 
 original_questions = {
@@ -77,7 +76,7 @@ def shuffle(q):
 @app.route('/')
 def gets():
   return render_template('user.html')
-
+li=[]
 @app.route('/quiz',methods=['GET','POST']) 
 def quiz():
   if request.method=='POST':
@@ -101,8 +100,10 @@ def quiz_answers():
   print(correct)
   li.append(correct)
   insert(li)
-  deatailss=get()
-  return render_template("result.html",deatailss=deatailss)
+  py=get()
+  if len(li)>2:
+    del li[0:2]
+  return render_template("result.html",py=py)
 
 
 
