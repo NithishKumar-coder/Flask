@@ -9,6 +9,9 @@ sqliteconnection=sqlite3.connect('quiz.db')
 file_handler=RotatingFileHandler("error.log",maxBytes= 1024 * 1024 *100)
 app.logger.addHandler(file_handler)
 
+li=[]
+score=0
+
 original_questions = {
  'Taj Mahal':['Agra','New Delhi','Mumbai','Chennai'],
  'Great Wall of China':['China','Beijing','Shanghai','Tianjin'],
@@ -21,7 +24,7 @@ original_questions = {
 
 questions = copy.deepcopy(original_questions)
 
-def conn(name):
+def conn():
     #this function is to create connection to database and create a table in it
     sqliteConnection = sqlite3.connect('quiz.db')
     cursor = sqliteConnection.cursor()
@@ -29,7 +32,8 @@ def conn(name):
     sqliteConnection.commit()
     return sqliteConnection
 
-def insert(sqliteConnection,insert_details):
+def insert(insert_details):
+    sqliteConnection=sqlite3.connect('quiz.db')
     #it is to insert new values into db
     cursor = sqliteConnection.cursor()
     insert_query="""INSERT INTO details(name,score) VALUES(?, ?)"""
@@ -37,11 +41,21 @@ def insert(sqliteConnection,insert_details):
     sqliteConnection.commit()
     print(" Inserted ")
 
-def get(sqliteConnection,name):
+def update(mass):
+    conn = sqlite3.connect('quiz1.db')
+    print ("Opened database successfully")
+    update_query = """Update details set score =? where name = ?"""
+    conn.execute(update_query,(mass[1],mass[0]))
+    conn.commit()
+    print ("Total number of rows updated :", conn.total_changes)
+    conn.close()
+
+def get():
+    sqliteConnection=sqlite3.connect('quiz.db')
     cursor = sqliteConnection.cursor()
     # it is to select the  details of defined  name given by the user
-    get_query = """SELECT * from details where name=?"""
-    cursor.execute(get_query,[name])
+    get_query = """SELECT * from details """
+    cursor.execute(get_query)
     data= cursor.fetchall()
     return data
 
@@ -64,12 +78,17 @@ def shuffle(q):
 def gets():
   return render_template('user.html')
 
-@app.route('/quiz')
+@app.route('/quiz',methods=['GET','POST']) 
 def quiz():
- questions_shuffled = shuffle(questions)
- for i in questions.keys():
-  random.shuffle(questions[i])
- return render_template('main.html', q = questions_shuffled, o = questions)
+  if request.method=='POST':
+    name=request.form['what'].lower()
+    li.append(name)
+  conn()
+  
+  questions_shuffled = shuffle(questions)
+  for i in questions.keys():
+    random.shuffle(questions[i])
+  return render_template('main.html', q = questions_shuffled, o = questions)
 
 
 @app.route('/score', methods=['POST'])
@@ -79,15 +98,11 @@ def quiz_answers():
     answered = request.form[i]
     if original_questions[i][0] == answered:
       correct = correct+1
-  name=request.form['name'].lower()
-  if name:
-    sqliteconnection=conn(name)
-    li=[]
-    li.append(name)
-    li.append(correct)
-    insert(sqliteConnection,li)
-    deatailss=get(sqliteconnection,name)
-  return render_template("second.html",deatailss=deatailss)
+  print(correct)
+  li.append(correct)
+  insert(li)
+  deatailss=get()
+  return render_template("result.html",deatailss=deatailss)
 
 
 
